@@ -1,9 +1,7 @@
-from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # SQLite database file
-db = SQLAlchemy(app)
+# Create SQLAlchemy instance without app context
+db = SQLAlchemy()
 
 class Pickup(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -11,3 +9,6 @@ class Pickup(db.Model):
     inductance = db.Column(db.Float)
     wire_type = db.Column(db.String(50))
     turn_count = db.Column(db.Integer)
+
+    def __repr__(self):
+        return f"Pickup(id={self.id}, resistance={self.resistance}, inductance={self.inductance}, wire_type={self.wire_type}, turn_count={self.turn_count})"
